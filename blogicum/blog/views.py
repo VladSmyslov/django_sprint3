@@ -11,7 +11,7 @@ def index(request):
         pub_date__date__lt=datetime.date.today(),
         is_published__exact=True,
         category__is_published__exact=True
-    ).order_by('-pub_date')[0:5]
+    )[:5]
     context = {
         'post_list': post_list
     }
@@ -37,7 +37,7 @@ def category_posts(request, category_slug):
         Post.objects.filter(
             is_published__exact=True,
             category__is_published__exact=True,
-            category__slug__contains=category_slug,
+            category__slug__exact=category_slug,
             pub_date__date__lt=datetime.date.today(),
         )
     )
